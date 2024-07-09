@@ -2,11 +2,11 @@
     <div class="box has-text-weight-bold">
         <div class="columns">
             <div class="column is-7">
-                Descrição da Tarefa
+                {{ tarefa.descricao }}
             </div>
 
             <div class="column">
-                <CronometroComponent :tempoEmSegundos="tempoEmSegundos" />
+                <CronometroComponent :tempoEmSegundos="tarefa.duracaoEmSegundos" />
             </div>
 
         </div>
@@ -14,8 +14,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+//PropType é uma função que é usada para definir o tipo de uma propriedade em um componente Vue.
+import { defineComponent, PropType } from 'vue'; //
 import CronometroComponent from './Cronometro.vue';
+import ITarefa from '@/interfaces/ITarefa';
 
 export default defineComponent({
     name: 'TarefaComponent',
@@ -23,6 +25,11 @@ export default defineComponent({
         CronometroComponent,
     },
     props: {
+        // O tipo de propriedade é um objeto que segue a interface ITarefa
+        tarefa: {
+            type: Object as PropType<ITarefa>,
+            required: true,
+        },
         tempoEmSegundos: {
             type: Number,
             default: 0,
