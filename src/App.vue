@@ -6,6 +6,14 @@
     </div>
     <div class="column is-three-quarter">
       <Formulario />
+
+      <div class="lista-tarefas">
+        <!-- <Tarefa v-for="tarefa in tarefas" :key="tarefa.id" :tempoEmSegundos="tarefa.tempoEmSegundos" /> -->
+      <Tarefa />
+      <Tarefa />
+      <Tarefa />
+
+      </div>
     </div>
   </main>
 </template>
@@ -14,16 +22,20 @@
 import { defineComponent } from 'vue';
 import BarraLateral from './components/BarraLateral.vue';
 import Formulario from './components/Formulario.vue';
+import Tarefa from './components/Tarefa.vue';
 
 export default defineComponent({
   name: 'App',
   components: {
     BarraLateral,
     Formulario,
+    Tarefa,
   },
 });
 </script>
 
 <style scoped>
-/* Seu estilo aqui */
+.lista-tarefas {
+  padding: 1.25rem;
+}
 </style>
