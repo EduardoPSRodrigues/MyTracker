@@ -1,39 +1,27 @@
 <template>
-    <div class="is-flex is-align-items-center is-justify-content-flex-start">
+    <section class="is-flex is-align-items-center is-justify-content-flex-start">
 
         <!-- Passou a variável tempoEmSegundos via prop para receber esse valor no componente -->
         <CronometroComponent :tempoEmSegundos="tempoEmSegundos" />
 
-        <button class="m-3 button" @click="iniciarCronometro" :disabled="cronometroRodando">
-            <span class="icon">
-                <i class="fas fa-play"></i>
-            </span>
-            <span>Play</span>
-        </button>
-        <button class="m-3 button" @click="pararCronometro" :disabled="!cronometroRodando">
-            <span class="icon">
-                <i class="fa-solid fa-pause"></i>
-            </span>
-            <span>Pause</span>
-        </button>
-        <button class="m-3 button" @click="finalizarCronometro" :disabled="!cronometroRodando">
-            <span class="icon">
-                <i class="fa-solid fa-check"></i>
-            </span>
-            <span>Finalizar</span>
-        </button>
-    </div>
+        <Botao @clicado="iniciarCronometro" icone="fas fa-play" texto="Play" :desabilitado="cronometroRodando" />
+        <Botao @clicado="pararCronometro" icone="fa-solid fa-pause" texto="Pause" :desabilitado="!cronometroRodando" />
+        <Botao @clicado="finalizarCronometro" icone="fas fa-stop" texto="Finalizar" :desabilitado="!cronometroRodando" />
+
+    </section>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import CronometroComponent from "./Cronometro.vue";
+import Botao from "./Botao.vue";
 
 export default defineComponent({
     name: "TemporizadorComponent",
     emits: ['aoTemporizadorFinalizado'],
     components: {
         CronometroComponent,
+        Botao,
     },
     data() {
         return {
