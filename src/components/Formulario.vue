@@ -11,36 +11,13 @@
           type="text"
           class="input"
           placeholder="Qual tarefa você deseja iniciar?"
+          v-model="descricaoTarefa"
         />
       </div>
 
       <!-- Framework Bulma -->
       <div class="column">
-        <div
-          class="is-flex is-align-items-center is-justify-content-flex-start"
-        >
-          <section class="p-3">
-            <strong>{{ tempoDecorrido }}</strong>
-          </section>
-          <button class="m-3 button" @click="iniciarCronometro">
-            <span class="icon">
-              <i class="fas fa-play"></i>
-            </span>
-            <span>Play</span>
-          </button>
-          <button class="m-3 button" @click="pararCronometro">
-            <span class="icon">
-                <i class="fa-solid fa-pause"></i>
-            </span>
-            <span>Pause</span>
-          </button>
-          <button class="m-3 button" @click="finalizarCronometro">
-            <span class="icon">
-                <i class="fa-solid fa-check"></i>
-            </span>
-            <span>Finalizar</span>
-          </button>
-        </div>
+        <TemporizadorComponent @aoTemporizadorFinalizado="finalizarTarefa" />
       </div>
     </div>
   </div>
@@ -48,34 +25,25 @@
 
 <script lang="ts">
   import { defineComponent } from "vue";
+  import TemporizadorComponent from "./Temporizador.vue";
 
-export default defineComponent({
+  export default defineComponent({
     name: "FormularioComponent",
-    data() {
-        return {
-            tempoEmSegundos: 0,
-            cronometro: 0,
-        };
+    components: {
+      TemporizadorComponent,
     },
-    computed: {
-        // Método computado para calcular o tempo decorrido
-        tempoDecorrido(): string {
-            return new Date(this.tempoEmSegundos * 1000)
-                .toISOString()
-                .substr(11, 8); // Formato HH:mm:ss
-        },
+    data() {
+      return {
+        descricaoTarefa: "",
+      };
     },
     methods: {
-        iniciarCronometro() {
-            this.cronometro = setInterval(() => {
-                //A cada 1 segundo, o cronômetro será atualizado
-                this.tempoEmSegundos++;
-            }, 1000);
-        },
-        pararCronometro() {
-            clearInterval(this.cronometro);
-
-        },
+      finalizarTarefa(tempoDecorrido: number): void {
+        console.log(
+          `Tarefa (${this.descricaoTarefa}) finalizada em ${tempoDecorrido} segundos`
+        );
+        this.descricaoTarefa = "";
+      },
     },
-});
+  });
 </script>
