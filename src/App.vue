@@ -1,15 +1,12 @@
 <template>
   <!-- Criando layout de colunas sem o espaçamento padrão entre as colunas com o framework Bulma -->
-  <main class “columns is-gapless is-multiline”>
-
+  <main class="columns is-gapless is-multiline">
     <div class="column is-one-quarter">
       <BarraLateral />
     </div>
-
     <div class="column is-three-quarter">
-
+      <!-- Conteúdo principal -->
     </div>
-
   </main>
 </template>
 
@@ -20,10 +17,11 @@ import BarraLateral from './components/BarraLateral.vue';
 export default defineComponent({
   name: 'App',
   components: {
-    BarraLateral
-  }
-
+    BarraLateral,
+  },
 });
 </script>
 
-<style></style>
+<style scoped>
+/* Seu estilo aqui */
+</style>
