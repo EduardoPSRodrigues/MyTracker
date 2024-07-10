@@ -1,5 +1,5 @@
 <template>
-  <div class="box">
+  <div class="box formulario">
     <div class="columns">
       <!-- Outra forma de divisão, sendo que essa divisão é em 8 colunas -->
       <div
@@ -49,3 +49,10 @@
     },
   });
 </script>
+
+<style>
+.formulario {
+  color: var(--texto-primario);
+  background-color: var(--bg-primario);
+}
+</style>
