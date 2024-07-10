@@ -8,8 +8,14 @@
     <header>
 
         <div class="container-header">
-            <img class="imagem-logo" src="../assets/logo.png" alt="Logotipo do My Tracker">
-            <h1> My Tracker </h1>
+            <div class="logo-title">
+                <img class="imagem-logo" src="../assets/logo.png" alt="Logotipo do My Tracker">
+                <h1> My Tracker </h1>
+            </div>
+
+            <button class="button" @click="AlterarTema">
+                {{ textoBotao }}
+            </button>
         </div>
 
 
@@ -20,7 +26,23 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-    name: 'BarraLateral'
+    name: 'BarraLateral',
+    data() {
+        return {
+            modoEscuroAtivo: false,
+        };
+    },
+    computed: {
+        textoBotao() :string {
+            return this.modoEscuroAtivo ? 'Ativar modo escuro' : 'Desativar modo escuro';
+        },
+    },
+    methods: {
+        AlterarTema() {
+            this.modoEscuroAtivo = !this.modoEscuroAtivo;
+            document.querySelector('main')?.classList.toggle('modo-escuro')
+        }
+    }
 })
 
 </script>
@@ -38,13 +60,22 @@ header {
 h1 {
     color: white;
     font-family: "Playwrite HU", sans-serif;
-    font-size: 40px
+    font-size: 34px;
+    margin-left: 1rem;
+    font-weight: bold;
 }
 
 .container-header {
-    display: flex;
+    display: block;
     align-items: center;
     justify-content: center;
+    text-align: center;
+}
+
+.logo-title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
 }
 
 .imagem-logo {
