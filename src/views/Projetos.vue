@@ -18,12 +18,28 @@
         <button class="button" type="submit">Salvar</button>
       </div>
     </form>
+
+    <!-- Classe do Bulma para pegar a largura toda e criar uma tabela -->
+    <table class="table is-fullwidth">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="projeto in projetos" :key="projeto.id">
+          <td>{{ projeto.id }}</td>
+          <td>{{ projeto.nome }}</td>
+        </tr>
+      </tbody>
+    </table>
   </section>
 </template>
 
 <script lang="ts">
   import IProjeto from "@/interfaces/IProjeto";
-import { defineComponent } from "vue";
+  import { defineComponent } from "vue";
 
   export default defineComponent({
     name: "ProjetosComponent",
@@ -47,7 +63,7 @@ import { defineComponent } from "vue";
 </script>
 
 <style scoped>
-.projetos {
-  padding: 1.25rem;
-}
+  .projetos {
+    padding: 1.25rem;
+  }
 </style>
