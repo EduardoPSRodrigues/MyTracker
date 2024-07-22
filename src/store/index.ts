@@ -1,6 +1,6 @@
 //Variáveis globais do Vuex
-// Vuex é um padrão de gerenciamento de estado + biblioteca para aplicativos Vue.js. 
-// Ele serve como um armazém centralizado para todos os componentes em um aplicativo, 
+// Vuex é um padrão de gerenciamento de estado + biblioteca para aplicativos Vue.js.
+// Ele serve como um armazém centralizado para todos os componentes em um aplicativo,
 // com regras que garantem que o estado só possa ser mutado de maneira previsível.
 
 import IProjeto from "@/interfaces/IProjeto";
@@ -10,8 +10,9 @@ import {
   ADICIONA_PROJETO,
   ALTERA_PROJETO,
   EXCLUIR_PROJETO,
+  NOTIFICAR,
 } from "./tipo-mutacoes";
-import { INotificacao, TipoNotificacao } from "@/interfaces/INotificacao";
+import { INotificacao } from "@/interfaces/INotificacao";
 
 interface Estado {
   projetos: IProjeto[];
@@ -26,26 +27,7 @@ export const key: InjectionKey<Store<Estado>> = Symbol();
 export const store = createStore<Estado>({
   state: {
     projetos: [],
-    notificacoes: [
-      {
-        id: 1,
-        texto: "Uma notificação de sucesso",
-        titulo: "sucesso",
-        tipo: TipoNotificacao.SUCESSO,
-      },
-      {
-        id: 2,
-        texto: "Uma notificação de atenção",
-        titulo: "atenção",
-        tipo: TipoNotificacao.ATENCAO,
-      },
-      {
-        id: 3,
-        texto: "Uma notificação de falha",
-        titulo: "falha",
-        tipo: TipoNotificacao.FALHA,
-      },
-    ],
+    notificacoes: [],
   },
   // Mutations são funções que alteram o estado
   mutations: {
@@ -62,6 +44,17 @@ export const store = createStore<Estado>({
     },
     [EXCLUIR_PROJETO](state, id: string) {
       state.projetos = state.projetos.filter((proj) => proj.id != id); // Filtra os projetos que não são o projeto a ser excluído e sobrepõe os dados
+    },
+    [NOTIFICAR](state, novaNotificacao: INotificacao) {
+      novaNotificacao.id = new Date().getTime(); // Atribui um id único para a notificação
+      state.notificacoes.push(novaNotificacao);
+
+      setTimeout(() => {
+        // Remove a notificação após 3 segundos
+        state.notificacoes = state.notificacoes.filter(
+          (notificacao) => notificacao.id != novaNotificacao.id
+        );
+      }, 3000);
     },
   },
 });
