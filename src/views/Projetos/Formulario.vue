@@ -20,8 +20,13 @@
 </template>
 
 <script lang="ts">
+  import { TipoNotificacao } from "@/interfaces/INotificacao";
   import { useStore } from "@/store";
-  import { ADICIONA_PROJETO, ALTERA_PROJETO } from "@/store/tipo-mutacoes";
+  import {
+    ADICIONA_PROJETO,
+    ALTERA_PROJETO,
+    NOTIFICAR,
+  } from "@/store/tipo-mutacoes";
   import { defineComponent } from "vue";
 
   export default defineComponent({
@@ -60,6 +65,11 @@
           this.store.commit(ADICIONA_PROJETO, this.nomeDoProjeto);
         }
         this.nomeDoProjeto = ""; // Limpa o campo de texto
+        this.store.commit(NOTIFICAR, {
+          tipo: TipoNotificacao.SUCESSO,
+          titulo: "Novo projeto adicionado",
+          texto: "O projeto foi salvo com sucesso",
+        });
         this.$router.push("/projetos"); // Redireciona para a página de projetos
       },
     },
