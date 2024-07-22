@@ -1,8 +1,6 @@
 <template>
-  <section class="projetos">
-    <!-- Classe title e o form usando o framework Bulma -->
-    <h1 class="title">Projetos</h1>
-
+  <section>
+    <!-- Classe form usando o framework Bulma -->
     <form @submit.prevent="salvar">
       <div class="field">
         <label for="nomeDoProjeto" class="label"> Nome do projeto </label>
@@ -39,7 +37,7 @@
         const projeto = this.store.state.projetos.find(
           (projeto) => projeto.id === this.id
         );
-          this.nomeDoProjeto = projeto?.nome || "";
+        this.nomeDoProjeto = projeto?.nome || "";
       }
     },
     data() {
@@ -52,7 +50,7 @@
         if (this.id) {
           // EDIÇÃO DO PROJETO
           // Chama a mutation
-          this.store.commit("ALTERA_PROJETO", { 
+          this.store.commit("ALTERA_PROJETO", {
             id: this.id,
             nome: this.nomeDoProjeto,
           });
@@ -72,9 +70,3 @@
     },
   });
 </script>
-
-<style scoped>
-  .projetos {
-    padding: 1.25rem;
-  }
-</style>
