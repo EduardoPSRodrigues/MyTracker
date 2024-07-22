@@ -18,7 +18,6 @@
         <button class="button" type="submit">Salvar</button>
       </div>
     </form>
-
   </section>
 </template>
 
@@ -28,14 +27,39 @@
 
   export default defineComponent({
     name: "FormularioProjetos",
+    // Recebe o id do projeto da URL, para isso tem que colocar props true na rota
+    props: {
+      id: {
+        type: String,
+      },
+    },
+    mounted() {
+      // Se tiver id, pega o projeto pelo id
+      if (this.id) {
+        const projeto = this.store.state.projetos.find(
+          (projeto) => projeto.id === this.id
+        );
+          this.nomeDoProjeto = projeto?.nome || "";
+      }
+    },
     data() {
       return {
-        nomeDoProjeto: ""
+        nomeDoProjeto: "",
       };
     },
     methods: {
       salvar() {
-        this.store.commit("ADICIONA_PROJETO", this.nomeDoProjeto); // Chama a mutation
+        if (this.id) {
+          // EDIÇÃO DO PROJETO
+          // Chama a mutation
+          this.store.commit("ALTERA_PROJETO", { 
+            id: this.id,
+            nome: this.nomeDoProjeto,
+          });
+        } else {
+          // Chama a mutation
+          this.store.commit("ADICIONA_PROJETO", this.nomeDoProjeto);
+        }
         this.nomeDoProjeto = ""; // Limpa o campo de texto
         this.$router.push("/projetos"); // Redireciona para a página de projetos
       },
@@ -43,7 +67,7 @@
     setup() {
       const store = useStore(); // Pega a store que formatei e esta com a key
       return {
-        store
+        store,
       };
     },
   });
