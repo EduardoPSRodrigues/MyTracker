@@ -27,10 +27,13 @@ export const store = createStore<Estado>({
     ALTERA_PROJETO(state, projeto: IProjeto) {
       const index = state.projetos.findIndex((proj) => proj.id === projeto.id); // Encontra o index do projeto
       state.projetos[index] = projeto; // Substitui o projeto
-    }
+    },
+    EXCLUIR_PROJETO(state, id: string) {
+      state.projetos = state.projetos.filter((proj) => proj.id != id); // Filtra os projetos que não são o projeto a ser excluído e sobrepõe os dados
+    },
   },
 });
 
-export function useStore() :Store<Estado> {
+export function useStore(): Store<Estado> {
   return vuexUseStore(key);
 }
