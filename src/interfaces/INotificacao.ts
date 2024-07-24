@@ -2,6 +2,7 @@ export enum TipoNotificacao {
   SUCESSO,
   FALHA,
   ATENCAO,
+  ERRO,
 }
 
 export interface INotificacao {

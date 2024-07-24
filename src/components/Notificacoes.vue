@@ -25,6 +25,7 @@
           [TipoNotificacao.SUCESSO]: "is-success",
           [TipoNotificacao.ATENCAO]: "is-warning",
           [TipoNotificacao.FALHA]: "is-danger",
+          [TipoNotificacao.ERRO]: "is-danger",
         },
       };
     },
