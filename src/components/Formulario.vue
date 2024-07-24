@@ -45,11 +45,12 @@
   import TemporizadorComponent from "./Temporizador.vue";
   import { useStore } from "@/store";
   import { TipoNotificacao } from "@/interfaces/INotificacao";
-  import { NOTIFICAR } from "@/store/tipo-mutacoes";
+  import { notificacaoMixin } from "@/mixins/notificar";
 
   export default defineComponent({
     name: "FormularioComponent",
     emits: ["aoSalvarTarefa"],
+    mixins: [notificacaoMixin],
     components: {
       TemporizadorComponent,
     },
@@ -63,12 +64,12 @@
       finalizarTarefa(tempoDecorrido: number): void {
         const projeto = this.projetos.find((p) => p.id == this.idProjeto); // Buscar pelo projeto
         if (!projeto) {
-          // Se o projeto não existeir, então surgirá um alerta
-          this.store.commit(NOTIFICAR, {
-            tipo: TipoNotificacao.ERRO,
-            titulo: "Ops!",
-            texto: "Selecione um projeto antes de finalizar a tarefa!",
-          }); // notificamos o usuário
+          // Se o projeto não existir, então surgirá um alerta
+          this.notificar(
+            TipoNotificacao.ERRO,
+            "Ops!",
+            "Selecione um projeto antes de finalizar a tarefa!"
+          );
           return; // Ao fazer return, o restante do método salvarTarefa não será executado. Técnica de early return
         }
         // Se o projeto existe, então salva a atividade
@@ -85,7 +86,7 @@
     setup() {
       const store = useStore(); // Importar o store e a key
       return {
-        // acessar o state dentro do template
+        // Acessar o state dentro do template
         store, // Adiciona o store ao retorno para que possa ser acessado nos métodos
         projetos: computed(() => store.state.projetos), // Retornar os projetos e é possível
       };
