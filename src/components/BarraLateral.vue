@@ -9,7 +9,7 @@
 
         <div class="container-header">
             <div class="logo-title">
-                <img class="imagem-logo" src="../assets/logo.png" alt="Logotipo do My Tracker">
+                <img class="imagem-logo" src="../assets/Imagem_Barra_Lateral.png" alt="Logotipo do My Tracker">
                 <h1> My Tracker </h1>
             </div>
 
