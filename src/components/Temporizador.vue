@@ -1,12 +1,19 @@
 <template>
-    <section class="is-flex is-align-items-center is-justify-content-flex-start">
+    <section class="is-flex is-align-items-center is-justify-content-center is-flex-wrap-wrap">
 
         <!-- Passou a variável tempoEmSegundos via prop para receber esse valor no componente -->
+        <div class="column is-narrow">
         <CronometroComponent :tempoEmSegundos="tempoEmSegundos" />
+    </div>
 
-        <Botao @clicado="iniciarCronometro" icone="fas fa-play" texto="Play" :desabilitado="cronometroRodando" />
-        <Botao @clicado="pararCronometro" icone="fa-solid fa-pause" texto="Pause" :desabilitado="!cronometroRodando" />
-        <Botao @clicado="finalizarCronometro" icone="fas fa-stop" texto="Finalizar" :desabilitado="!cronometroRodando" />
+    <!-- <div class="column is-narrow"></div>
+    <div class="column is-narrow"> </div>
+    <div class="column is-narrow"> </div> -->
+        
+    <Botao class="is-success" @clicado="iniciarCronometro" icone="fas fa-play" texto="Play" :desabilitado="cronometroRodando" />
+    <Botao class="is-warning" @clicado="pararCronometro" icone="fa-solid fa-pause" texto="Pause" :desabilitado="!cronometroRodando" />
+    <Botao class="is-danger" @clicado="finalizarCronometro" icone="fas fa-stop" texto="Finalizar" :desabilitado="!cronometroRodando" />
+        
 
     </section>
 </template>

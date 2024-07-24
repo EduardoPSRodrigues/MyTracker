@@ -1,9 +1,9 @@
 <template>
-  <div class="box formulario">
-    <div class="columns">
-      <!-- Outra forma de divisão, sendo que essa divisão é em 8 colunas -->
+  <div class="box formulario is-fullwidth">
+    <div class="columns is-multiline">
+      <!-- Input de tarefa -->
       <div
-        class="column is-5 is-flex is-align-items-center is-justify-content-flex-start"
+        class="column is-12-mobile is-5-tablet is-flex is-align-items-center is-justify-content-flex-start"
         role="form"
         aria-label="Formulário para criação de uma nova tarefa"
       >
@@ -15,10 +15,11 @@
         />
       </div>
 
+      <!-- Seleção de projeto -->
       <div
-        class="column is-3 is-flex is-align-items-center is-justify-content-flex-start"
+        class="column is-12-mobile is-3-tablet is-flex is-align-items-center is-justify-content-flex-start"
       >
-        <div class="select">
+        <div class="select is-fullwidth">
           <select v-model="idProjeto">
             <option value="">Selecione o projeto</option>
             <option
@@ -32,8 +33,8 @@
         </div>
       </div>
 
-      <!-- Framework Bulma -->
-      <div class="column">
+      <!-- Temporizador -->
+      <div class="column is-12-mobile is-4-tablet">
         <TemporizadorComponent @aoTemporizadorFinalizado="finalizarTarefa" />
       </div>
     </div>
@@ -62,33 +63,30 @@
     },
     methods: {
       finalizarTarefa(tempoDecorrido: number): void {
-        const projeto = this.projetos.find((p) => p.id == this.idProjeto); // Buscar pelo projeto
+        const projeto = this.projetos.find((p) => p.id == this.idProjeto);
         if (!projeto) {
-          // Se o projeto não existir, então surgirá um alerta
           this.notificar(
             TipoNotificacao.ERRO,
             "Ops!",
             "Selecione um projeto antes de finalizar a tarefa!"
           );
-          return; // Ao fazer return, o restante do método salvarTarefa não será executado. Técnica de early return
+          return;
         }
-        // Se o projeto existe, então salva a atividade
         this.$emit("aoSalvarTarefa", {
           duracaoEmSegundos: tempoDecorrido,
           descricao: this.descricaoTarefa,
           projeto: this.projetos.find(
             (projeto) => projeto.id === this.idProjeto
-          ), // Encontrar o projeto pelo id
+          ),
         });
         this.descricaoTarefa = "";
       },
     },
     setup() {
-      const store = useStore(); // Importar o store e a key
+      const store = useStore();
       return {
-        // Acessar o state dentro do template
-        store, // Adiciona o store ao retorno para que possa ser acessado nos métodos
-        projetos: computed(() => store.state.projetos), // Retornar os projetos e é possível
+        store,
+        projetos: computed(() => store.state.projetos),
       };
     },
   });
